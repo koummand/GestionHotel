@@ -1,1 +1,41 @@
-<p>listuser works!</p>
+<div class="container">
+    <h2 *ngIf="clients && clients.length>0"> {{title}}</h2> 
+    <hr>
+    <div class="my-2">
+      <div class="row">
+        <div class="col-md-4">
+          <span class="filter">Filtre actuel: </span>
+          <b>{{clientFilter}}</b>
+        </div>
+        <div class="col-md-8 form-group">
+          <input type="text" class="form-control" [(ngModel)]="clientFilter" placeholder="Recherche">
+        </div>
+      </div>
+    </div>
+    <div class="row n-6"> 
+      <div class="col-lg-4" *ngFor="let client of filtersClients">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h5 class="panel-title"> <b>NOM ET PRENOM: </b>{{ client.nom | titlecase }}</h5>
+            <p class="panel-text"><b>SEXE: </b>{{ client.sexe }} </p>
+            <p class="panel-text"><b>TELEPHONE: </b> {{ client.telephone}}</p>
+            <p class="panel-text"><b>EMAIL: </b>{{ client.email}}</p>
+            <p class="panel-text"><b>VILLE: </b>{{ client.adresse}}</p>
+            <div class="d-flex justify-content-between align-items-baseline">
+              <span class="material-icons bg-primary text-white p-2 rounded-circle btn"
+               [routerLink]="['/client',client.id,'edit']">
+                edit
+              </span>
+               <span class="material-icons bg-info text-white p-2 rounded-circle btn"
+                [routerLink]="['/client',client.id]">
+                 keyboard_arrow_right
+               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+</div>
+  
+

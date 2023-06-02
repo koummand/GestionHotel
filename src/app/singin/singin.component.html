@@ -1,6 +1,33 @@
-<div class="container">
-  <div class="row">
-
+ <div class="container">
+  <div class="col-sm-8 col-sm-offset-2">
+    <div class="panel panel-default">
+      <h2>LOGIN</h2>
+        <div class="panel-body">
+        <form [formGroup]="singInFormGroup" (ngSubmit)="onSubmit()">
+          <div class="form-group row mb-2">
+            <label for="nom" class="col-md-2 col-form-label">Email</label>
+            <div class="col-md-8">
+               <input type="text" id="nom" class="form-control" formControlName="login" />
+            </div>
+          </div>
+          <div class="form-group row mb-2">
+            <label for="pass" class="col-md-2 col-form-label" placeholder="minimum 6 carractères">password</label>
+            <div class="col-md-8">
+               <input type="text" id="pass" class="form-control" formControlName="password" />
+            </div>
+          </div>
+          <div class="form-group row mb-2">
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success " [disabled]="singInFormGroup.invalid">Connexion</button>
+            </div>
+            <div class="col-md-8">
+                  <button type="button" class="btn btn-primary " (click)="senregistrez()" >S'Enregistrer</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <p type="text-danger">{{errorMessage}}</p>
   </div>
 </div>
 

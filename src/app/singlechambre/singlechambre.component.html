@@ -1,1 +1,55 @@
-<p>singlechambre works!</p>
+<div class="container">
+    <div class="panel panel-default" *ngIf="chambre" style="border:none;">
+      <div class="panel-header text-white bg-info" style="font-size: 30px; border:none;">
+        {{ chambre.hotelName | uppercase }}
+      </div>
+  
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-md-4">Nom:</div>
+              <div class="col-md-8">{{ chambre.hotelName }}</div>
+            </div>
+  
+            <div class="row">
+              <div class="col-md-4">Description:</div>
+              <div class="col-md-8">{{ chambre.description }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Prix:</div>
+              <div class="col-md-8"> {{ chambre.price | currency: "EUR":"symbol":"1.2-2":"fr" }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Note:</div>
+              <div class="col-md-8">
+                <app-star-rating [rating]="chambre.rating"></app-star-rating>
+              </div>
+            </div>
+            
+          </div>
+          <div class="col-lg-4" id="im"> <img
+            [src]="chambre.imageUrl"
+            [title]="chambre.hotelName | uppercase"
+            [alt]="chambre.hotelName"
+            class="panel-img-top"
+          /></div>
+  
+        </div>
+      </div>
+  
+      <div class="panel-footer">
+        
+          <button class="btn btn-outline-info d-flex" (click)="backToList()">
+            <span class="material-icons " >keyboard_arrow_left</span>
+            Retour a la liste
+          </button>
+          <button class="btn btn-success" (click)="reservation()">
+            <span class="material-icons"></span>
+            reservez la chambre
+          </button>
+    
+      </div>
+    </div>
+  </div>
+  

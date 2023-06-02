@@ -1,0 +1,20 @@
+.filter {
+    font-size: 30px;
+  }
+  img{
+      height: 200px;;
+      width: 358px;
+      border-bottom-right-radius: 20px;
+  }
+  .filter,h2{
+    color:blanchedalmond;
+  }
+  #loc{
+    width:15px;
+    height: 50px;
+    color:blanchedalmond;
+  }
+  .container{
+    margin-top: 16%;
+   }
+ 

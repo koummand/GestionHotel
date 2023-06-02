@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="panel panel-default" *ngIf="client">
+      <div class="panel-header text-white bg-info">
+        {{ client.nom | uppercase }}
+      </div>
+  
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-4"><b>Nom: </b></div>
+              <div class="col-md-8">{{ client.nom }}</div>
+            </div>
+  
+            <div class="row">
+              <div class="col-md-4"><b>sexe: </b></div>
+              <div class="col-md-8">{{ client.sexe }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4"><b>Telephone: </b></div>
+              <div class="col-md-8"> {{ client.telephone}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4"><b>email: </b></div>
+              <div class="col-md-8">{{client.email}} </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"><b>ville: </b></div>
+                <div class="col-md-8">{{client.adresse}} </div>
+            </div>
+            
+           <!-- <div class="row">
+              <img
+                [src]="client.imageUrl"
+                [title]="client.nom | uppercase"
+                [alt]="client.nom"
+                class="panel-img-top"
+              />-->
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  
+      <div class="panel-footer">
+        
+          <button class="btn btn-outline-info d-flex" (click)="backToList()">
+            <span class="material-icons " >keyboard_arrow_left</span>
+            Retour a la liste
+          </button>
+    
+      </div>
+    </div>
+  

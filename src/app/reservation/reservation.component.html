@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="col-sm-8 col-sm-offset-2">
+      <div class="panel panel-default">
+      <h2>Faire une Reservation </h2>
+      <div class="panel-body">
+      <form [formGroup]="ReservationFormGroup" (ngSubmit)="saveClient()">
+        <div class="form-group row mb-2">
+          <label for="num" class="col-md-2 col-form-label">numero de facture</label>
+          <div class="col-md-8">
+            <input type="text" id="num" class="form-control" formControlName="numeroFacture" />
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="dateStart" class="col-md-2 col-form-label">Date de début</label>
+          <div class="col-md-8">
+             <input type="date" id="dateStart" class="form-control" formControlName="dateStart" />
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="dateEnd" class="col-md-2 col-form-label">Date de fin</label>
+          <div class="col-md-8">
+              <input type="date" id="dateEnd" class="form-control" formControlName="dateEnd" />
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="nbNuit" class="col-md-2 col-form-label">nombre de nuit</label>
+          <div class="col-md-8">
+            <input type="text" id="nbNuit" class="form-control" formControlName="nombreNuit" />
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="chambre" class="col-md-2 col-form-label">chambre</label>
+          <div class="col-md-8">
+            <select id="chambre" class="form-control" formControlName="chambre">
+              <option *ngFor="let chambre of chambres; let i = index">{{chambre.hotelName}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="desc" class="col-md-2 col-form-label">Description</label>
+          <div class="col-md-8">
+              <input type="text" id="desc" class="form-control" formControlName="description" />
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <div class="col-md-4">
+             <button type="submit" class="btn btn-success" [disabled]="ReservationFormGroup.invalid">Reserver</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    </div>
+      <p type="text-danger">{{errorMessage}}</p>
+    </div>
+  </div>
+

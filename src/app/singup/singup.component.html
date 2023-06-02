@@ -1,1 +1,65 @@
-<p>singup works!</p>
+<div class="container">
+  <div class="col-sm-8 col-sm-offset-2">
+    <div class="panel panel-default">
+      <h2>{{pageTitle}}</h2>
+      <div class="panel-body">
+      <form [formGroup]="singUpFormGroup" (ngSubmit)="saveClient()">
+        <div class="form-group row mb-2" >
+          <label for="nom" class="col-md-2 col-form-label">nom et prenom</label>
+          <div class="col-md-8">
+          <input type="text" id="nom" class="form-control" formControlName="nom" />
+        </div>
+      </div>
+        <div class="form-group row mb-2">
+          <label for="sexe" class="col-md-2 col-form-label">sexe</label>
+          <div class="col-md-8">
+            <Select id="sexe" class="form-control" formControlName="sexe">
+              <option value="Homme">Homme</option>
+              <option value="Femme">Femme</option>
+            </Select>
+        </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="tel" class="col-md-2 col-form-label">tel</label>
+          <div class="col-md-8">
+           <input type="text" id="tel" class="form-control" formControlName="telephone" />
+         </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="mail" class="col-md-2 col-form-label">email</label>
+          <div class="col-md-8">
+            <input type="email" id="mail" class="form-control" formControlName="email" />
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="pass" class="col-md-2 col-form-label">password</label>
+          <div class="col-md-8">
+            <input type="password" id="pass" class="form-control" formControlName="password" />
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="adress" class="col-md-2 col-form-label">ville</label>
+          <div class="col-md-8">
+            <input type="text" id="adress" class="form-control" formControlName="adress" />
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <div class="offset-md-2 col-md-8">
+            <button type="submit" class="btn btn-info mr-3"  [disabled]="singUpFormGroup.invalid">Sauvegarder</button>
+            <button class="btn btn-outline-secondary mr-3" type="button" title="Annuler les modifications"
+              [routerLink]="['/listuser']">
+              Annuler
+            </button>
+            <button class="btn btn-outline-danger" type="button" title="Supprimer cet hotel" [disabled]="client.id === 0"
+              (click)="deleteClient()"
+            >
+              Supprimer
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+      <p type="text-danger">{{errorMessage}}</p>
+    </div>
+  </div>
+</div>

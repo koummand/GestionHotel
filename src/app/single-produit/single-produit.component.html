@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="panel panel-default" *ngIf="produit" style="border:none;">
+      <div class="panel-header text-white bg-info" style="font-size: 30px; border:none;">
+        {{ produit.designation | uppercase }}
+      </div>
+  
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-8">
+    
+            <div class="row">
+              <div class="col-md-4">Désignation: </div>
+              <div class="col-md-8">{{ produit.designation }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Prix: </div>
+              <div class="col-md-8"> {{ produit.prix | currency: "EUR":"symbol":"1.2-2":"fr" }}</div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-4">Fournisseur</div>
+              <div class="col-md-8">{{produit.fournisseur.fournisseurName }} </div>
+            </div>
+            
+          </div>
+        <!--  <div class="col-lg-4" id="im"> <img
+            [src]="chambre.imageUrl"
+            [title]="chambre.hotelName | uppercase"
+            [alt]="chambre.hotelName"
+            class="panel-img-top"
+          /></div>-->
+  
+        </div>
+      </div>
+  
+      <div class="panel-footer">
+        
+          <button class="btn btn-outline-info d-flex" (click)="backToList()">
+            <span class="material-icons " >keyboard_arrow_left</span>
+            Retour a la liste
+          </button>
+          <button class="btn btn-success" (click)="passercommande()">
+            <span class="material-icons"></span>
+            passez la commande
+          </button>
+    
+      </div>
+    </div>
+  </div>
+  
+

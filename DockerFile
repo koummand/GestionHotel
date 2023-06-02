@@ -1,0 +1,46 @@
+#stage1 it use to build the image application
+#this one is use to optimise the building the app(tools for build, ng and debug)
+FROM node:latest as node
+#create the workspace
+WORKDIR /app
+#copy the dockerfile in the workdir
+COPY . /app
+#install all the dependences of nodemodule 
+RUN npm install
+#to generate the dist folder wich contain all the deployable packages
+RUN npm run build --prod
+#stage 2 it use to move the another docker image
+#this one is optimise for runing the application
+FROM nginx:alpine as nginx
+COPY --from=node /app/dist/gestion-hotel /usr/share/nginx/html
+#........................................
+
+#FROM node:lts-alpine
+#WORKDIR /app
+#COPY package.json ./
+#RUN npm install -g @angular/cli
+#RUN npm install
+#EXPOSE 4200
+#CMD ["ng", "serve", "--host", "0.0.0.0 "]
+
+#............................................
+
+#dowload java
+#ARG JAVA_VERSION="19-JDK"
+#FROM openjdk:${JAVA_VERSION}
+
+#Name your project and the version of your project
+#ENV PROJECT_NAME="gestion-hotel"
+#LABEL version="0.0.0"
+ 
+#Name and create your workspace
+#ARG APP_HOME="/opt/depoyment"
+#RUN mkdir ${APP_HOME}
+
+#copy the jar from the local image
+#COPY taget/gestion-hotel-0.0.0.jar ${APP_HOME}/gestion-hotel-0.0.0.jar
+
+#run aplication with java -jar 
+#WORKDIR ${APP_HOME}
+#EXPOSE 8080
+#ENTRYPOINT ["java", "-jar", "gestion-hotel-0.0.0.jar"]

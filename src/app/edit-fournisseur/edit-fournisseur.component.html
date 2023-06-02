@@ -1,0 +1,51 @@
+<div class="container">
+    <div
+       class="alert alert-danger mt-2 mb-2 d-flex align-items-center"
+       *ngIf="errorMessage"
+     >
+       <span class="material-icons mr-2">error</span>
+       {{ errorMessage }}
+       <span class="material-icons ml-auto" (click)="hideErrorMessage()">
+         close
+       </span>
+     </div>
+   
+     <div class="panel panel-default " style="border:none;">
+       <div class="panel-header text-white  bg-info " style="font-size: 30px; border:none;">{{pageTitle}}</div>
+       <div class="panel-body">
+         
+         <form novalidate  [formGroup]="fournisseurForm" (ngSubmit)="saveFournisseur()">
+           <div class="form-group row mb-2">
+             <label for="hotelNameId" class="col-md-2 col-form-label"> Nom Fournisseur</label>
+             <div class="col-md-8">
+               <input id="hotelNameId" type="text" class="form-control" formControlName="fournisseurName" placeholder="Nom(obligatoire)" />
+              <!--//todo[ngClass]="{'is-invalid': formErrors.hotelName} {{formErrors.hotelName}}--> 
+               <span class="invalid-feedback"></span>
+             </div>
+           </div>
+          
+           <div class="form-group row mb-2">
+             <div class="offset-md-2 col-md-8">
+               <button class="btn btn-info mr-3" type="submit"[disabled]="fournisseurForm.invalid">Sauvegarder</button>
+               <button class="btn btn-outline-secondary mr-3" type="button" title="Annuler les modifications"
+                 [routerLink]="['/listfournisseur']">
+                 Annuler
+               </button>
+               <button class="btn btn-outline-danger" type="button" title="Supprimer ce fournisseur" [disabled]="fournisseur.id === 0"
+                 (click)="deleteFournisseur()"
+               >
+                 Supprimer
+               </button>
+             </div>
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
+  <!--
+   //pour visualiser les valeur que recuper typescripe l'or de la creation du formulaire
+   <pre>
+     {{ hotelForm.value | json }}
+   </pre>
+   -->
+ 

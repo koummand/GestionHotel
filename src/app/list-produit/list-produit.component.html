@@ -1,0 +1,41 @@
+<div class="container">
+    <h2 *ngIf="produits && produits.length>0">{{title}}</h2>
+    <hr>
+    <div class="my-2">
+      <div class="row">
+        <div class="col-md-4">
+          <span class="filter">Filtre actuel: </span>
+          <b>{{produitFilter}}</b>
+        </div>
+        <div class="col-md-8 form-group">
+          <input type="text" class="form-control" [(ngModel)]="produitFilter" placeholder="Recherche">
+        </div>
+      </div>
+    </div>
+    <div class="row n-6"> 
+      <div class="col-lg-4" *ngFor="let produit of filtersProduits">
+        <div class="panel panel-default">
+          <!--<img [src]=" produit.imageUrl" [title]="produit.hotelName | uppercase" class="panel-img-top" [alt]="hotel.hotelName"/>-->
+          <div class="panel-body">
+              <p class="panel-text"><b>Prix unitaire: </b> {{ produit.prix | currency :"EUR" :"symbol" : "1.2-2":"fr"}} </p>
+            <h5 class="panel-title"><b>Désignation: </b>{{ produit.designation | titlecase }}</h5>
+            <p class="panel-text"> <b>Quantite en stock: </b>{{ produit.quantite_stock }} </p>
+            <p class="panel-text"> <b>Fournisseur: </b>{{ produit.fournisseur.fournisseurName}} </p>
+            <div class="d-flex justify-content-between align-items-baseline">
+              <span class="material-icons bg-primary text-white p-2 rounded-circle btn"
+               [routerLink]="['/produit',produit.id,'edit']">
+                edit
+              </span>
+               <span class="material-icons bg-success text-white p-2 rounded-circle btn"
+                [routerLink]="['/produit',produit.id]">
+                 keyboard_arrow_right
+               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+</div>
+  
+

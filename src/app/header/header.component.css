@@ -1,0 +1,27 @@
+nav{
+    border-radius:0%;
+    border-bottom: white;
+    position: fixed;
+    width: 100%;
+    height: 18%;
+    z-index:2;
+}
+a{
+    text-decoration: none;
+    border-radius: 20px;
+    padding: 7px;
+}
+
+#home,#login,#logout,#save{
+    width: 30px;
+    color:blanchedalmond; 
+}
+.ui,#hot{
+    height: 50px;
+}
+
+
+
+
+
+
