@@ -5,30 +5,33 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Chambre } from './listchambre/model/Chambre';
 import { Injectable } from '@angular/core';
-import { Client } from './listuser/model/Client';
+
 
 @Injectable({
-  providedIn: 'root'
+  providedIn:'root'
 })
 export class ChambreService {
-
-  private readonly HOTEL_API_URL = 'api/chambres';
+  
+  
+  readonly API_URL="http://localhost:8082";
+  readonly READ="/findAllChambre";
+  readonly READID="/getChambre/id/";
+  readonly WRITTE="/addchambre";
+  readonly UPDATE= "/updateChambre/id/";
+  readonly DELETE="/deleteChambre/id/";
+  
 
   constructor(private http: HttpClient) { }
-
+  
   public getHotels(): Observable<Chambre[]> {
-    return this.http.get<Chambre[]>(this.HOTEL_API_URL).pipe(  
-      tap(hotels=>console.log('hotels', hotels)),
-      catchError(this.handleHttpError)
-    );
+    return this.http.get<Chambre[]>(this.API_URL+this.READ);
   }
   
   public getHotelById(id: number): Observable<Chambre> {
-    const url= `${this.HOTEL_API_URL}/${id}`;
    if (id === 0) {
       return of(this.getDefaultHotel());
     }
-    return this.http.get<Chambre>(url).pipe(
+    return this.http.get<Chambre>(this.API_URL+this.READID+'/'+id).pipe(
       catchError(this.handleHttpError)
     )
   }
@@ -36,24 +39,24 @@ export class ChambreService {
   public createHotel(hotel: Chambre): Observable<Chambre> {
     hotel = {
       ...hotel,
-      imageUrl: 'assets/img/indoors.jpg',
+      //imageUrl: 'assets/img/indoors.jpg',
       id:0//to do null
       };
-    return this.http.post<Chambre>(this.HOTEL_API_URL, hotel).pipe(
+    return this.http.post<Chambre>(this.API_URL+this.WRITTE, hotel).pipe(
       catchError(this.handleHttpError)
     )
   }
 
   public updateHotel(chambre: Chambre): Observable<Chambre> {
-    const url = `${this.HOTEL_API_URL}/${chambre.id}`;
+   
 
-    return this.http.put<Chambre>(url, chambre).pipe(
+    return this.http.put<Chambre>(this.API_URL+this.UPDATE+chambre.id, chambre).pipe(
       catchError(this.handleHttpError)
     );
   }
 
   public deleteHotel(id: number ): Observable<{}> {
-    const url = `${this.HOTEL_API_URL}/${id}`;
+    const url = this.API_URL+this.DELETE+id;
 
     return this.http.delete<Chambre>(url).pipe(
       catchError(this.handleHttpError)

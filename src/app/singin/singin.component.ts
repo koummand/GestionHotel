@@ -32,14 +32,14 @@ onSubmit(){
     const password= this.singInFormGroup.get('password')?.value;
    let result= this.userService.singIn(login, password);
    
-   if(result==="connexion reuissit"){
+   /*if(result==="connexion reuissit"){
     alert(result) ;
     this.saveCompleted();
     this.router.navigate(['/listchambre'])
    }else{
      alert(result+" l'email ou le mot de passe ne correspond pas");
     this.singInFormGroup.reset();
-   }
+   }*/
 }
 
 public senregistrez(): void {

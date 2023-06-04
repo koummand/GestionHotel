@@ -53,10 +53,11 @@ export class EditchambreComponent implements OnInit, AfterViewInit {
       this.globalGenericValidator = new GenericGlobalValidator(this.validationMessages);
   
       // first attempt
-  
+      
       this.hotelForm = this.formBuilder.group({
         hotelName: [ '',[ Validators.required,Validators.minLength(3), Validators.maxLength(50) ]],
-        price: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+        price: ['', Validators.required, ],
+        imgeUrl:['', Validators.required],
         rating: ['', NumberValidators.range(1, 5)],
         tags: this.formBuilder.array([]),
         description: ['',Validators.required]
@@ -78,7 +79,7 @@ export class EditchambreComponent implements OnInit, AfterViewInit {
   
       this.validateForm();
     }
-  
+    
     public hideErrorMessage(): void {
       this.errorMessage= '';
     }
@@ -89,31 +90,47 @@ export class EditchambreComponent implements OnInit, AfterViewInit {
       }
       );
     }
-  
+    
     public displayHotel(hotel: Chambre): void {
       this.hotel = hotel;
-       if(this.hotel.id===0){
+      if(this.hotel.id===0){
         this.pageTitle="créer une chambre";
-       }else{
+      }else{
         this.pageTitle=`modifier la chambre ${this.hotel.hotelName}`;
+      }
+      //<img id="resultat" width="">  en balise img d'affichage let resultat= document.querySelector('#resultat');
+      //onchange recoi la methode <script> function methode(){if deffinit ci dessous}</script>
+      let file= document.querySelector(this.hotelForm.value.imageUrl);//("input[type=file]")
+      let resultat= document.querySelector('#resultat');
+      if(file.length>0){
+        let fileReader = new FileReader();
+        fileReader.onload =function(event){
+          document
+          .getElementById('resultat');
+          //?.setAttribute("src",event.target.result);
+        }
+        fileReader.readAsDataURL(file[0])
       }
       this.hotelForm.patchValue({
         hotelName: this.hotel.hotelName,
         price: this.hotel.price,
+        //to do choice image
+        imgeUrl:file,
+        //imgeUrl: this.hotel.imageUrl,
         rating: this.hotel.rating,
         description: this.hotel.description,
       });
       this.hotelForm.setControl('tags', this.formBuilder.array(this.hotel.tags || []));
     }
-  
+    
     public get tags(): FormArray {
       return this.hotelForm.get('tags') as FormArray;
     }
-  
+    
     public addTag(): void {
       this.tags.push(new FormControl());
     }
-  
+    
     public deleteTag(index: number): void {
       this.tags.removeAt(index);
       this.tags.markAsDirty();

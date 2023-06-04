@@ -9,41 +9,47 @@ import { Fournisseur } from './list-fournisseur/model/Fournisseur';
   providedIn: 'root'
 })
 export class ProduitService {
-
-  private readonly PRODUIT_API_URL = 'api/produits';
+  readonly API_URL="http://localhost:8082";
+  readonly READ="/findAllProduit";
+  readonly READID="/findProduitById/id/";
+  readonly WRITTE="/addProduit";
+  readonly UPDATE= "updateProduit/id/";
+  readonly DELETE="/deleteProduit/id/";
 
   constructor(private http: HttpClient) { }
 
   public getProduits(): Observable<Produit[]> {
-    return this.http.get<Produit[]>(this.PRODUIT_API_URL).pipe(  
+    
+    return this.http.get<Produit[]>(this.API_URL+this.READ).pipe(  
       tap(produits=>console.log('produits', produits)),
       catchError(this.handleHttpError)
     );
   }
   
   public getProduitsById(id: number): Observable<Produit> {
-    const url= `${this.PRODUIT_API_URL}/${id}`;
+     
    if (id === 0) {
       return of(this.getDefaultProduit());
     }
-    return this.http.get<Produit>(url).pipe(
+    return this.http.get<Produit>(this.API_URL+this.READID+id).pipe(
       catchError(this.handleHttpError)
     )
   }
 
   public saveProduit(produit: Produit): Observable<Produit> {
+    
     produit = {
       ...produit,
       //imageUrl: 'assets/img/indoors.jpg',
       id:0//to do null
       };
-    return this.http.post<Produit>(this.PRODUIT_API_URL, produit).pipe(
+      return this.http.post<Produit>(this.API_URL+this.WRITTE, produit).pipe(
       catchError(this.handleHttpError)
     )
   }
 
   public updateProduit(produit: Produit): Observable<Produit> {
-    const url = `${this.PRODUIT_API_URL}/${produit.id}`;
+    const url = this.API_URL+this.UPDATE+produit.id;
 
     return this.http.put<Produit>(url, produit).pipe(
       catchError(this.handleHttpError)
@@ -51,7 +57,7 @@ export class ProduitService {
   }
 
   public deleteProduit(id: number ): Observable<{}> {
-    const url = `${this.PRODUIT_API_URL}/${id}`;
+    const url = this.API_URL+this.DELETE+id;
 
     return this.http.delete<Produit>(url).pipe(
       catchError(this.handleHttpError)

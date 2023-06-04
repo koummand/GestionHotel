@@ -1,4 +1,5 @@
 nav{
+   
     border-radius: 0%;
     border: none;
     position: fixed;
@@ -15,4 +16,6 @@ a{
 
      
 }
-
+h1,span{
+    color:blanchedalmond;
+}

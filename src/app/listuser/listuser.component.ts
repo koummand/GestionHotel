@@ -34,8 +34,8 @@ export class ListuserComponent implements OnInit {
   
     ngOnInit() {
      this.userService.getUsers().subscribe({
-      next:clients =>{
-        this.clients=clients,
+      next:data =>{
+        this.clients=data,
           this.filtersClients=this.clients;  
       },
       error:err=>this.errorMessage=err

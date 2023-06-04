@@ -23,7 +23,8 @@
     <div class="row n-6"> 
       <div class="col-lg-4" *ngFor="let hotel of filtersHotels">
         <div class="panel panel-default">
-          <img [src]=" hotel.imageUrl" [title]="hotel.hotelName | uppercase" class="panel-img-top" [alt]="hotel.hotelName"/>
+          <span>{{hotel.imageUrl}}</span>
+          <img [src]="hotel.imageUrl" [title]="hotel.hotelName | uppercase" class="panel-img-top" [alt]="hotel.hotelName"/>
           <div class="panel-body">
             <h5 class="panel-title">{{ hotel.hotelName | titlecase }}</h5>
             <p class="panel-text"> {{ hotel.description }} </p>

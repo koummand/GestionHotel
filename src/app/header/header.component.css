@@ -1,6 +1,6 @@
 nav{
     border-radius:0%;
-    border-bottom: white;
+    border-bottom:  rgba(245, 245, 245, 0.642);
     position: fixed;
     width: 100%;
     height: 18%;
@@ -12,10 +12,16 @@ a{
     padding: 7px;
 }
 
-#home,#login,#logout,#save{
+#home,#login,#logout,#save,#hot{
     width: 30px;
     color:blanchedalmond; 
 }
+h2{
+    color: blanchedalmond;
+    font-size: 30px;
+    margin-left: 45%;
+}
+
 .ui,#hot{
     height: 50px;
 }

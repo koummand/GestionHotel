@@ -4,11 +4,17 @@ import { classFournisseur, Fournisseur } from './list-fournisseur/model/Fourniss
 import { Observable, throwError, of, Subscription } from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class FournisseurService {
-
+  readonly API_URL="http://localhost:8082";
+  readonly READ="/findAllfournisseur";
+  readonly READID="/findfournisseurById/id/";
+  readonly WRITTE="/addFournisseur";
+  readonly UPDATE= "updateFournisseur/id/";
+  readonly DELETE="/deleteFounrisseur/id/";
 
   constructor(private http: HttpClient) { 
 
@@ -16,7 +22,6 @@ export class FournisseurService {
 
 
 
-  private readonly FOURNISSEUR_API_URL = 'api/fournisseurs';
   private fournisseur!:Subscription;
 
 
@@ -37,14 +42,15 @@ export class FournisseurService {
   }
   
   public getFournisseurs():Observable<Fournisseur[]>{
-    return this.http.get<Fournisseur[]>(this.FOURNISSEUR_API_URL).pipe(
+   
+    return this.http.get<Fournisseur[]>(this.API_URL+this.READ).pipe(
       tap(clients=>console.log('clients',clients)),
       catchError(this.handleHttpError)
       );
     }
     
     public deleteFournisseur(id:number): Observable<{}>{
-      const url=`${this.FOURNISSEUR_API_URL}/${id}`;
+      const url=this.API_URL+this.DELETE+id;
       
       return this.http.delete<Fournisseur>(url).pipe(
         catchError(this.handleHttpError)
@@ -53,11 +59,11 @@ export class FournisseurService {
      
       
       public getFournisseurById(id:number):Observable<Fournisseur>{
-        const url=`${this.FOURNISSEUR_API_URL}/${id}`;
+        
         if(id===0){
           return of(this.getDefaultFournisseur());
         }else{
-          return this.http.get<Fournisseur>(url).pipe(
+          return this.http.get<Fournisseur>(this.API_URL+this.READID+id).pipe(
             catchError(this.handleHttpError)
             );
           }
@@ -68,7 +74,8 @@ export class FournisseurService {
             ...fournisseur,
             id:0
           };
-          return this.http.post<Fournisseur>(this.FOURNISSEUR_API_URL,fournisseur).pipe(
+          
+          return this.http.post<Fournisseur>(this.API_URL+this.WRITTE,fournisseur).pipe(
             catchError(this.handleHttpError)
           )
         }
@@ -77,9 +84,9 @@ export class FournisseurService {
 
   public updateFournisseur(fournisseur:Fournisseur): Observable<Fournisseur>{
 
- const url=`${this.FOURNISSEUR_API_URL}/${fournisseur.id}`;
+       
 
-   return this.http.put<Fournisseur>(url,fournisseur).pipe(
+   return this.http.put<Fournisseur>(this.API_URL+this.UPDATE+fournisseur.id,fournisseur).pipe(
     catchError(this.handleHttpError)
    );
   }

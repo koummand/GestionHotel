@@ -1,9 +1,9 @@
-<nav class= "navbar navbar-default" style="background-color: whitesmoke;">
+<nav class= "navbar navbar-default" style="background-color: rgba(0, 0, 0, 0.5);">
     <div class="container-fluid">
         <h2>{{titre}} <span class="material-icons" id="hot">hotel_race</span></h2>
         <ul class="nav navbar-nav">
             
-            <li routerLinkActive="active" ><a  routerLink="home" class="ui bg-primary" style="color: blanchedalmond;"><span class="material-icons " id="home">home_race</span>Home</a></li>
+            <li routerLinkActive="active" ><a  routerLink="home" class="ui bg-primary" style="color: #ffebcd;"><span class="material-icons " id="home">home_race</span>Home</a></li>
             <li routerLinkActive="active"[routerLinkActiveOptions]="{exact:true}"><a routerLink="listchambre">Liste des chambres</a></li>
             <li routerLinkActive="active"><a [routerLink] ="['listuser']">liste des clients</a></li> 
             <li routerLinkActive="active"[routerLinkActiveOptions]="{exact:true}"><a [routerLink] ="['hotels','0','edit']">Ajouter une chambre</a></li>

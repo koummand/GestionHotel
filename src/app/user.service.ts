@@ -1,9 +1,10 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ClassClient, Client } from './listuser/model/Client';
 import { Observable, throwError, of, Subscription } from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 
 @Injectable({
@@ -11,23 +12,35 @@ import { ActivatedRoute, Route } from '@angular/router';
 })
 export class UserService {
 
-  private readonly HOTEL_API_URL = 'api/clients';
+  
   private client!:Subscription;
 
-  constructor(private http: HttpClient) { }
+  readonly API_URL="http://localhost:8082";
+  readonly READ="/findAllClient";
+  readonly READID="/getClient/id/";
+  readonly WRITTE="/addClient";
+  readonly UPDATE= "updateClient/id/";
+  readonly DELETE="/deleteClient/id/";
+  
+  constructor(private http: HttpClient, private route: Router) { }
 
   
   singIn(login:string,password:string){
-   this.client = this.getUsers().subscribe({
-      next: clients => clients.find((client:Client)=>client.email===login && client.password===password),
+    this.client = this.getUsers().subscribe({
+      next: clients => clients.find((client:Client)=>{
+       
+        if(client.email===login && client.password===password){
+          alert('connexion reuissit');
+          this.route.navigate(['/listchambre'])
+         }else{
+          
+           this.route.navigate(['/signup'])
+    
+         }
+      }),
       error: catchError(this.handleHttpError)
     });
-    if(this.client!=null){
-      return"connexion reuissit";
-      
-    }else{
-      return "echec de connexion";
-    }
+    
   }
   
   singOut(){
@@ -35,38 +48,40 @@ export class UserService {
   }
   
   public getUsers():Observable<Client[]>{
-    return this.http.get<Client[]>(this.HOTEL_API_URL).pipe(
+    
+    return this.http.get<Client[]>(this.API_URL+this.READ).pipe(
       tap(clients=>console.log('clients',clients)),
       catchError(this.handleHttpError)
       );
     }
     
     public deleteUser(id:number): Observable<{}>{
-      const url=`${this.HOTEL_API_URL}/${id}`;
+     
       
-      return this.http.delete<Client>(url).pipe(
+      return this.http.delete<Client>(this.API_URL+this.DELETE+id).pipe(
         catchError(this.handleHttpError)
         );
       }
      
       
       public getUserById(id:number):Observable<Client>{
-        const url=`${this.HOTEL_API_URL}/${id}`;
+        
         if(id===0){
           return of(this.getDefaultHotel());
         }else{
-          return this.http.get<Client>(url).pipe(
+          return this.http.get<Client>(this.API_URL+this.READID+id).pipe(
             catchError(this.handleHttpError)
             );
           }
         }
         
       public  singUpservice(client:Client):Observable<Client>{
+        
           client={
             ...client,
             id:0
           };
-          return this.http.post<Client>(this.HOTEL_API_URL,client).pipe(
+          return this.http.post<Client>(this.API_URL+this.WRITTE,client).pipe(
             catchError(this.handleHttpError)
           )
         }
@@ -74,10 +89,7 @@ export class UserService {
         
 
   public updateUser(client:Client): Observable<Client>{
-
- const url=`${this.HOTEL_API_URL}/${client.id}`;
-
-   return this.http.put<Client>(url,client).pipe(
+   return this.http.put<Client>(this.API_URL+this.UPDATE+client.id,client).pipe(
     catchError(this.handleHttpError)
    );
   }
